@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Playlist Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 Spotify Playlist Extractor</h1>
+            <p>Extract all songs from any public Spotify playlist</p>
+        </header>
+
+        <div class="form-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" class="extract-form">
+                <div class="form-group">
+                    <label for="playlist_url">Spotify Playlist URL:</label>
+                    <input type="url"
+                           id="playlist_url"
+                           name="playlist_url"
+                           placeholder="https://open.spotify.com/playlist/..."
+                           required
+                           value="{{ request.form.playlist_url or '' }}">
+                </div>
+
+                <button type="submit" class="btn-extract">Extract Songs</button>
+            </form>
+
+            <div class="instructions">
+                <h3>How to use:</h3>
+                <ol>
+                    <li>Go to your Spotify playlist in the web browser</li>
+                    <li>Copy the URL from the address bar</li>
+                    <li>Paste it above and click "Extract Songs"</li>
+                    <li>Download your songs as a text file</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

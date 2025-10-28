@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extraction Results - Spotify Playlist Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ Extraction Complete!</h1>
+            <p>Found {{ total_songs }} unique songs</p>
+        </header>
+
+        <div class="results-container">
+            <div class="actions">
+                <a href="{{ url_for('download_file', filename = file_temp) }}" class="btn-download">
+                    📥 Download as TXT File
+                </a>
+                <a href="{{ url_for('index') }}" class="btn-back">← Extract Another Playlist</a>
+            </div>
+
+            <div class="songs-preview">
+                <h3>Preview (first 20 songs):</h3>
+                <div class="songs-list">
+                    {% for song in songs[:20] %}
+                    <div class="song-item">{{ loop.index }}. {{ song }}</div>
+                    {% endfor %}
+                    {% if total_songs > 20 %}
+                    <div class="more-songs">... and {{ total_songs - 20 }} more songs</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cleanup if user leaves without downloading -->
+
+</body>
+</html>
